@@ -1,6 +1,7 @@
 {
   "name": "payk-token",
   "version": "1.0.0",
+  "license": "MIT",
   "scripts": {
     "deploy": "npx hardhat run scripts/deploy.js --network alfajores",
     "mint": "npx hardhat run scripts/mint.js --network alfajores",
