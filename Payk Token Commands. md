@@ -1,0 +1,58 @@
+# 📜 PAYK Token — Commands Guide
+
+## 1. Navigate to project folder:
+```bash
+cd ~/Desktop/PAYK/payk-token
+```
+
+---
+
+## 2. Compile smart contracts:
+```bash
+npx hardhat compile
+```
+
+---
+
+## 3. Deploy contract to Alfajores Testnet:
+```bash
+npx hardhat run scripts/deploy.js --network alfajores
+```
+
+---
+
+## 4. Mint PAYK tokens to recipient address:
+```bash
+npx hardhat run scripts/mint.js --network alfajores
+```
+
+---
+
+## 5. Burn PAYK tokens:
+```bash
+npx hardhat run scripts/burn.js --network alfajores
+```
+
+---
+
+# 📂 .env File (Required in project root):
+```plaintext
+PRIVATE_KEY=your_private_key
+ALFAJORES_RPC_URL=https://alfajores-forno.celo-testnet.org
+PAYK_TOKEN_ADDRESS=contract_address_after_deploy
+RECIPIENT_ADDRESS=recipient_wallet_address
+MINT_AMOUNT=1000
+BURN_AMOUNT=100
+```
+
+---
+
+# ⚡ Quick Tips:
+- Always update `PAYK_TOKEN_ADDRESS` in `.env` after deployment.
+- Verify `.env` values before running mint/burn scripts.
+- After contract changes, recompile with `npx hardhat compile`.
+- Use `--show-stack-traces` option on commands for detailed error logs if needed.
+
+---
+
+# ✨ Happy Building with PAYK Token!
