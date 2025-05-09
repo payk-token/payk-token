@@ -1,6 +1,9 @@
 # PAYK Token
+🪙 PAYK is a lightweight token for global crypto transfers by phone number, built on the CELO blockchain.
 
-🚀 PAYK is a lightweight token for global crypto transfers by phone number, built on the CELO blockchain.
+![PAYK  Home](https://github.com/user-attachments/assets/513c6250-58ff-41b6-8daf-754fd14aa1c0)
+
+![PAYK  Technology](https://github.com/user-attachments/assets/4005d7c3-771e-4894-9c9b-f4557bb13eb8)
 
 ## Project Description
 PAYK enables instant international transfers between users with minimal fees and a user-friendly experience — requiring only a phone number.
