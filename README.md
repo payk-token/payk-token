@@ -1,6 +1,4 @@
-# PAYK Token
-
-🪙 PAYK — Global Mobile Crypto Transfers
+# PAYK — Global Mobile Crypto Transfers
 
 💸 Send and receive money instantly via the PAYK chatbot in your favorite messenger. No apps, no registration — just your phone number. Exchange PAYK to stablecoins (cUSD, cEUR) or withdraw to fiat money.
 
