@@ -1,6 +1,8 @@
 # PAYK — Global Mobile Crypto Transfers
 
-💸 Send and receive money instantly via the PAYK chatbot in your favorite messenger. No apps, no registration — just your phone number. Exchange PAYK to stablecoins (cUSD, cEUR) or withdraw to fiat money.
+💸 Send and receive crypto instantly via the PAYK chatbot in your favorite messenger (WhatsApp, Telegram, or Facebook Messenger).  
+No apps, no registration — just your phone number.  
+Exchange PAYK for CELO stablecoins (cUSD, cEUR) and withdraw to fiat money.
 
 
 ![PAYK  Home](https://github.com/user-attachments/assets/513c6250-58ff-41b6-8daf-754fd14aa1c0)
@@ -39,10 +41,10 @@ payk-token/
 - Check PAYK token balance: npm run balance
 
 ## Upcoming Features
-- 📲 Mapping phone numbers to wallet addresses via CELO ODIS.
-- 💸 Sending tokens by phone number.
-- 🪙 Stablecoin support: CELO cUSD / cEUR integration.
-- ❇️ Mobile app integration for seamless UX.
+- 📲 Phone number mapping via CELO ODIS  
+- 💸 Token transfers by phone number  
+- 🪙 Stablecoin support: cUSD / cEUR  
+- ❇️ Mobile app & chatbot integration
 
 ## License
 
