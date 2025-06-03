@@ -3,19 +3,23 @@ import { newKitFromWeb3 } from "@celo/contractkit";
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 
+import fs from "fs";
+const keyEnvContent = fs.readFileSync(".env.keys", "utf-8");
+const parsedKeys = Object.fromEntries(keyEnvContent.split("\n").filter(Boolean).map(line => line.split("=")));
+
 const paykAbi = require("../artifacts/contracts/PAYKToken.sol/PAYKToken.json");
 const registryAbi = require("../artifacts/contracts/PhoneMappingRegistry.sol/PhoneMappingRegistry.json");
 import { utils as ethersUtils } from "ethers";
 import { Bot, session } from "grammy";
 import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config({ path: ".env.keys" });
 
 const web3 = new Web3(process.env.ALFAJORES_RPC_URL);
 const kit = newKitFromWeb3(web3);
-kit.addAccount(process.env.PRIVATE_KEY);
+kit.addAccount(parsedKeys.PRIVATE_KEY_380680082848);
+kit.addAccount(parsedKeys.PRIVATE_KEY_380989737510);
 
-const senderAddress = web3.eth.accounts.privateKeyToAccount(process.env.PRIVATE_KEY).address;
 const paykContract = new kit.web3.eth.Contract(paykAbi.abi, process.env.PAYK_TOKEN_ADDRESS);
 const phoneRegistry = new kit.web3.eth.Contract(registryAbi.abi, process.env.PHONE_MAPPING_REGISTRY_ADDRESS);
 
@@ -118,8 +122,8 @@ async function getTransferHistoryByPhone(phone, ctx, senderAddress) {
 
       const counterparty = counterpartyPhone || addressToPhoneMap.get(counterpartyAddress.toLowerCase()) || counterpartyAddress;
       const directionLabel = isSender ? `⬆️ Sent to: ${counterparty}` : `⬇️ Received from: ${counterparty}`;
-      const usdtEquivalent = (parseFloat(amount) * 0.1).toFixed(2);
-      const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      const usdtEquivalent = (parseFloat(amount) * 0.1).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      const formattedAmount = parseFloat(amount).toLocaleString("en-US");
 
       return `🕗 Date & time: ${date}\n${directionLabel}\n💰 Transfer amount: ${formattedAmount} PAYK (${usdtEquivalent} USDT)\n🪙 Transfer fee — 5 PAYK (0.5 USDT)\n\n🔗 Transaction hash: ${event.transactionHash}`;
     })
@@ -142,6 +146,12 @@ bot.command("start", async (ctx) => {
 
 bot.on("message:contact", async (ctx) => {
   let userPhone = ctx.message.contact.phone_number;
+
+  const demoPrivateKeys = {
+    "+380680082848": parsedKeys.PRIVATE_KEY_380680082848,
+    "+380989737510": parsedKeys.PRIVATE_KEY_380989737510,
+  };
+
   if (!userPhone.startsWith("+")) userPhone = "+" + userPhone;
   const salt = "CELO";
   const phoneHash = ethersUtils.keccak256(
@@ -155,8 +165,16 @@ bot.on("message:contact", async (ctx) => {
     ctx.session.phone = userPhone;
     ctx.session.senderPhone = userPhone;
     ctx.session.senderAddress = mappedAddress;
+    ctx.session.privateKey = demoPrivateKeys[userPhone] || undefined;
     addressToPhoneMap.set(mappedAddress.toLowerCase(), userPhone);
     phoneToChatMap.set(userPhone, ctx.chat.id);
+
+    // Save senderAddress in session for dynamic sender
+    ctx.session.senderAddress = mappedAddress;
+
+    // Try to get private key from environment or keep undefined if not available
+    // Since we do not have private key mapping for existing wallets, leave ctx.session.privateKey undefined
+
     await ctx.reply(`✅ Wallet already linked to this phone number.\n🔐 You are successfully logged in.`, {
       reply_markup: mainMenuKeyboard,
     });
@@ -172,11 +190,13 @@ bot.on("message:contact", async (ctx) => {
 
     // Set mapping
     await phoneRegistry.methods.setMapping(phoneHash, newAddress).send({
-      from: senderAddress,
+      from: newAddress,
     });
 
     ctx.session.phone = userPhone;
     ctx.session.senderPhone = userPhone;
+    ctx.session.privateKey = newWallet.privateKey;
+    ctx.session.senderAddress = newAddress;
     addressToPhoneMap.set(newAddress.toLowerCase(), userPhone);
     phoneToChatMap.set(userPhone, ctx.chat.id);
 
@@ -244,7 +264,7 @@ bot.hears("💼 My balance", async (ctx) => {
     const userAddress = await phoneRegistry.methods.getMapping(phoneHash).call();
     const paykBalanceWei = await paykContract.methods.balanceOf(userAddress).call();
     const paykBalance = parseFloat(kit.web3.utils.fromWei(paykBalanceWei, "ether"));
-    const usdtEquivalent = (paykBalance * 0.1).toFixed(2);
+    const usdtEquivalent = (paykBalance * 0.1).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     await ctx.reply(
       `💼 Your balance:\n🔹 ${paykBalance.toLocaleString("en-US")} PAYK (${usdtEquivalent} USDT)\n\n🔄 Exchange rate: 1 PAYK = 0.10 USDT`,
@@ -323,7 +343,7 @@ bot.on("message:text", async (ctx) => {
     const senderAddressResolved = await phoneRegistry.methods.getMapping(phoneHash).call();
     const paykBalanceWei = await paykContract.methods.balanceOf(senderAddressResolved).call();
     const paykBalance = parseFloat(kit.web3.utils.fromWei(paykBalanceWei, "ether"));
-    const usdtEquivalent = (paykBalance * 0.1).toFixed(2);
+    const usdtEquivalent = (paykBalance * 0.1).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
     return ctx.reply(
       `💰 Enter the amount of PAYK you want to send\n\n💼 Your balance:\n🔹 ${paykBalance.toLocaleString("en-US")} PAYK (${usdtEquivalent} USDT)`,
@@ -351,11 +371,23 @@ bot.on("message:text", async (ctx) => {
       }
 
       const amountInWei = kit.web3.utils.toWei(amount.toString(), "ether");
-      const tx = await paykContract.methods.transfer(recipientAddress, amountInWei).send({ from: ctx.session.senderAddress });
+      const txData = paykContract.methods.transfer(recipientAddress, amountInWei).encodeABI();
 
-      const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+      const senderPrivateKey = ctx.session.privateKey || process.env.PRIVATE_KEY;
+      const senderAccount = web3.eth.accounts.privateKeyToAccount(senderPrivateKey);
+
+      const signedTx = await web3.eth.accounts.signTransaction({
+        from: ctx.session.senderAddress,
+        to: paykContract.options.address,
+        data: txData,
+        gas: 200000,
+      }, senderPrivateKey);
+
+      const txReceipt = await web3.eth.sendSignedTransaction(signedTx.rawTransaction);
+
+      const formattedAmount = amount.toLocaleString("en-US");
       await ctx.reply(
-        `✅ Sent ${formattedAmount} PAYK (${(amount * 0.1).toFixed(2)} USDT) to number ${ctx.session.phone}\n🪙 Transfer fee — 5 PAYK (0.5 USDT)`,
+        `✅ Sent ${formattedAmount} PAYK (${(amount * 0.1).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} USDT) to number ${ctx.session.phone}\n🪙 Transfer fee — 5 PAYK (0.5 USDT)`,
         {
           reply_markup: mainMenuKeyboard,
         }
@@ -363,8 +395,8 @@ bot.on("message:text", async (ctx) => {
       await ctx.reply("💸");
       const recipientChatId = phoneToChatMap.get(ctx.session.phone);
       if (recipientChatId) {
-        const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
-        const usdtEquivalent = (amount * 0.1).toFixed(2);
+        const formattedAmount = amount.toLocaleString("en-US");
+        const usdtEquivalent = (amount * 0.1).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
         await bot.api.sendMessage(
           recipientChatId,
           `⬇️ You received ${formattedAmount} PAYK (${usdtEquivalent} USDT)\n📱 From ${ctx.session.phone}\n💰 It’s already in your wallet!`

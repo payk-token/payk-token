@@ -9,6 +9,8 @@ contract PhoneMappingRegistry is Ownable {
     constructor(address initialOwner) Ownable(initialOwner) {}
 
     function setMapping(bytes32 phoneHash, address userAddress) external onlyOwner {
+        address current = phoneToAddress[phoneHash];
+        require(current == address(0) || msg.sender == owner(), "Mapping already set");
         phoneToAddress[phoneHash] = userAddress;
     }
 
