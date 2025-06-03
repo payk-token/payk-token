@@ -7,7 +7,8 @@ Exchange PAYK for CELO stablecoins (cUSD, cEUR) and withdraw to fiat money.
 
 ![PAYK  Home](https://github.com/user-attachments/assets/513c6250-58ff-41b6-8daf-754fd14aa1c0)
 
-![PAYK  Technology](https://github.com/user-attachments/assets/4005d7c3-771e-4894-9c9b-f4557bb13eb8)
+![PAYK  Technology](https://github.com/user-attachments/assets/63c6824f-bade-4883-ba4a-113c090c34fb)
+
 
 ## Project Description
 PAYK is a mobile-first crypto solution that enables instant and low-cost international money transfers using just a phone number. Built on the CELO blockchain, PAYK combines a non-custodial wallet, ultralight mobile client, and native support for stablecoins (cUSD, cEUR).
