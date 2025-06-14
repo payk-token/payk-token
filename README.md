@@ -9,15 +9,17 @@ Easily exchange them into local currency whenever you need.
 🔗 Powered by Celo, a mobile-first Ethereum Layer 2 blockchain designed for fast, affordable, and borderless payments.
 
 
-![PAYK Home](PAYK. Home.jpeg)
+![PAYK  Home](https://github.com/user-attachments/assets/53ecb937-80f8-466a-bd9e-3e9d6a90f646)
 
-![PAYK Technology](PAYK. Technology.jpeg)
+![PAYK  Technology](https://github.com/user-attachments/assets/f56a0413-8abf-4b46-8435-6f86ed699a80)
+
 
 # Project Description
 
-PAYK is a lightweight, mobile-first crypto transfer service built on **Celo**, an Ethereum Layer 2 blockchain optimized for fast, low-cost, and mobile-native payments.
+PAYK is a lightweight, mobile-first crypto transfer service built on Celo, an Ethereum Layer 2 blockchain optimized for fast, low-cost, and mobile-native payments.
 
 PAYK enables instant and affordable international money transfers using just a phone number. It combines a non-custodial wallet, ultralight mobile client, and native support for stablecoins — all without requiring app installation or user registration.
+
 
 🔹 **How it works**
 
@@ -26,7 +28,7 @@ Send and receive money instantly via the PAYK chatbot on:
 - Telegram
 - Facebook Messenger
 
-Or use our mobile web app — no app downloads or sign-ups required. Just your phone number.
+Or use our mobile web app — PAYK. No app downloads or sign-ups required. Just your phone number.
 
 🔹 **Supported stablecoins**
 
@@ -39,7 +41,7 @@ All of them are easily exchangeable into local currencies.
 
 🔹 **Security & Privacy**
 
-Behind the scenes, PAYK performs dynamic mapping of phone numbers to wallet addresses using a secure hashing process. This ensures that each phone number is linked to a wallet via an on-chain registry. To protect user privacy and enhance security, all phone identifiers are encrypted using Celo’s **ODIS** (Oblivious Decentralized Identifier Service), making the mapping process tamper-resistant and censorship-proof.
+Behind the scenes, PAYK performs dynamic mapping of phone numbers to wallet addresses using a secure hashing process. This ensures that each phone number is linked to a wallet via an on-chain registry. To protect user privacy and enhance security, all phone identifiers are encrypted using Celo’s ODIS (Oblivious Decentralized Identifier Service), making the mapping process tamper-resistant and censorship-proof.
 
 With average transaction costs under $0.50 / €0.50 and near-instant finality, PAYK offers a seamless and intuitive user experience.
 
@@ -107,7 +109,7 @@ payk-token/
 ## Upcoming Features
 - 📲 Phone number mapping via CELO ODIS (prototype implemented with on-chain registry)
 - 💸 Token transfers by phone identifier (mock ODIS flow integrated)
-- 🪙 Stablecoin support: cUSD / cEUR  
+- 🪙 Stablecoin support: USDC / USDT  
 - ❇️ Mobile app & chatbot integration
 
 ## License
