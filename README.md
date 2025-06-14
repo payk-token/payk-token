@@ -7,8 +7,7 @@
 💸 PAYK lets people send and receive US dollars and euros using stablecoins — cUSD, cEUR, USDC, or USDT, and easily exchange them into local currency.
 
 
-
-![PAYK  Home](https://github.com/user-attachments/assets/53ecb937-80f8-466a-bd9e-3e9d6a90f646)
+![PAYK  Home](https://github.com/user-attachments/assets/c89c5be5-f336-4117-a517-149262808a4a)
 
 ![PAYK  Technology](https://github.com/user-attachments/assets/f56a0413-8abf-4b46-8435-6f86ed699a80)
 
