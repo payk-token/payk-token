@@ -1,12 +1,11 @@
 # PAYK — Global Mobile Transfers
 
-💸 Instantly send and receive money through the PAYK chatbot on WhatsApp, Telegram, or Facebook Messenger — or use our lightweight mobile web app.
-No downloads. No sign-ups. Just your phone number.
+🌍 PAYK is a Web3 fintech service for instant, low-cost international money transfers, using just a phone number to send and receive funds.
 
-🌍 Send and receive USD or EUR in stablecoins like cUSD and cEUR — native stablecoins of the Celo blockchain — as well as USDC (by Circle) and USDT (by Tether).
-Easily exchange them into local currency whenever you need.
+🔗 Built on Celo, a mobile-first Ethereum Layer 2 blockchain, PAYK offers a non-custodial wallet, ultra-light mobile client, and native stablecoin support, all without app installations or user sign-ups.
 
-🔗 Powered by Celo, a mobile-first Ethereum Layer 2 blockchain designed for fast, affordable, and borderless payments.
+💸 PAYK lets people send and receive US dollars and euros using stablecoins — cUSD, cEUR, USDC, or USDT, and easily exchange them into local currency.
+
 
 
 ![PAYK  Home](https://github.com/user-attachments/assets/53ecb937-80f8-466a-bd9e-3e9d6a90f646)
@@ -18,10 +17,8 @@ Easily exchange them into local currency whenever you need.
 
 PAYK is a lightweight, mobile-first crypto transfer service built on Celo, an Ethereum Layer 2 blockchain optimized for fast, low-cost, and mobile-native payments.
 
-PAYK enables instant and affordable international money transfers using just a phone number. It combines a non-custodial wallet, ultralight mobile client, and native support for stablecoins — all without requiring app installation or user registration.
 
-
-🔹 **How it works**
+⚙️ **How it works**
 
 Send and receive money instantly via the PAYK chatbot on:
 - WhatsApp
@@ -30,7 +27,7 @@ Send and receive money instantly via the PAYK chatbot on:
 
 Or use our mobile web app — PAYK. No app downloads or sign-ups required. Just your phone number.
 
-🔹 **Supported stablecoins**
+🪙 **Supported stablecoins**
 
 PAYK supports fast and secure transfers in:
 - **cUSD** and **cEUR** – native stablecoins on the Celo blockchain  
@@ -39,7 +36,7 @@ PAYK supports fast and secure transfers in:
 
 All of them are easily exchangeable into local currencies.
 
-🔹 **Security & Privacy**
+🔐 **Security & Privacy**
 
 Behind the scenes, PAYK performs dynamic mapping of phone numbers to wallet addresses using a secure hashing process. This ensures that each phone number is linked to a wallet via an on-chain registry. To protect user privacy and enhance security, all phone identifiers are encrypted using Celo’s ODIS (Oblivious Decentralized Identifier Service), making the mapping process tamper-resistant and censorship-proof.
 
